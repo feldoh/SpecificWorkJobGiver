@@ -12,26 +12,18 @@
   </PropertyGroup>
   <ItemGroup>
     <ReleaseFiles Include="1.*\**" Exclude="1.*\Source\**" />
-    <AboutFiles Include="About\**" />
+    <AboutFiles Include="About\**" Exclude="About\About-*" />
     <CommonFiles Include="Common\**" />
     <ExtraFiles Include="LoadFolders.xml;LICENSE" />
+    <None Include="About/About-*" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Common\Sounds" />
-    <Folder Include="Common\Textures" />
-    <Folder Include="Common\Languages" />
     <Folder Include="1.4\Defs" />
-    <Folder Include="1.4\Patches" />
   </ItemGroup>
   <Target Name="Clean" />
   <Target Name="Build">
-    <Copy SourceFiles="About\About-$(Configuration).xml" 
-          DestinationFiles="$(OutputPath)About\About.xml" 
-          SkipUnchangedFiles="true" />
-    <Copy Condition=" '$(Configuration)' == 'Release' "
-          SourceFiles="@(ReleaseFiles)"
-          DestinationFiles="@(ReleaseFiles->'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')"
-          SkipUnchangedFiles="true" />
+    <Copy SourceFiles="About\About-$(Configuration).xml" DestinationFiles="$(OutputPath)About\About.xml" SkipUnchangedFiles="true" />
+    <Copy Condition=" '$(Configuration)' == 'Release' " SourceFiles="@(ReleaseFiles)" DestinationFiles="@(ReleaseFiles->'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
   </Target>
   <Target Name="Rebuild" />
   <Target Name="PostBuild" AfterTargets="Build" Condition=" '$(Configuration)' != 'Release'">
@@ -39,19 +31,12 @@
   </Target>
   <Target Name="PostBuild" AfterTargets="Build" Condition=" '$(Configuration)' == 'Release' ">
     <RemoveDir Directories="Release" />
-    <Delete Files="${AssemblyName}.zip" />
-    <Copy SourceFiles="@(AboutFiles)"
-          DestinationFiles="@(AboutFiles->'Release\${AssemblyName}\About\%(RecursiveDir)%(Filename)%(Extension)')"
-          SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(CommonFiles)"
-          DestinationFiles="@(CommonFiles->'Release\${AssemblyName}\Common\%(RecursiveDir)%(Filename)%(Extension)')"
-          SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(ReleaseFiles)"
-          DestinationFiles="@(ReleaseFiles->'Release\${AssemblyName}\%(RecursiveDir)%(Filename)%(Extension)')"
-          SkipUnchangedFiles="false" />
-    <Copy SourceFiles="@(ExtraFiles)" DestinationFolder="Release\${AssemblyName}\"
-          SkipUnchangedFiles="false" />
-    <ZipDirectory DestinationFile="${AssemblyName}.zip" SourceDirectory="Release" />
+    <Delete Files="SpecificWorkJobGiver.zip" />
+    <Copy SourceFiles="@(AboutFiles)" DestinationFiles="@(AboutFiles->'Release\SpecificWorkJobGiver\About\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(CommonFiles)" DestinationFiles="@(CommonFiles->'Release\SpecificWorkJobGiver\Common\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(ReleaseFiles)" DestinationFiles="@(ReleaseFiles->'Release\SpecificWorkJobGiver\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="false" />
+    <Copy SourceFiles="@(ExtraFiles)" DestinationFolder="Release\SpecificWorkJobGiver\" SkipUnchangedFiles="false" />
+    <ZipDirectory DestinationFile="SpecificWorkJobGiver.zip" SourceDirectory="Release" />
     <RemoveDir Directories="obj" />
   </Target>
 </Project>

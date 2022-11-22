@@ -10,19 +10,47 @@
 				<li Class="ThinkNode_Subtree">
 					<treeDef>Despawned</treeDef>
 				</li>
+				
+				<!-- Keep charging if we're already charging -->
+				<li Class="ThinkNode_ConditionalRecharging">
+					<subNodes>
+						<li Class="JobGiver_GetEnergy_Charger" />
+					</subNodes>
+				</li>
 
 				<li Class="ThinkNode_ConditionalCanDoConstantThinkTreeJobNow">
 					<subNodes>
 						<li Class="ThinkNode_ConditionalPlayerMech">
 							<subNodes>
-								<li Class="JobGiver_GetEnergy_Charger" />
-								<li Class="SpecificWorkJobGiver.JobGiver_SpecificWork">
-									<workGiverDef>Drill</workGiverDef>
+								<li Class="ThinkNode_ConditionalWorkMode" MayRequire="Ludeon.RimWorld.Biotech">
+									<workMode>Recharge</workMode>
+									<subNodes>
+										<li Class="JobGiver_SeekAllowedArea" />
+										<li Class="JobGiver_GetEnergy_Charger" />
+										<li Class="JobGiver_GetEnergy_SelfShutdown">
+											<forced>true</forced>
+										</li>
+									</subNodes>
 								</li>
-								<li Class="JobGiver_WanderColony" />
+								<li Class="ThinkNode_ConditionalWorkMode" MayRequire="Ludeon.RimWorld.Biotech">
+									<workMode>Work</workMode>
+									<subNodes>
+										<li Class="JobGiver_SeekAllowedArea" />
+										<li Class="JobGiver_GetEnergy_Charger" />
+										<li Class="SpecificWorkJobGiver.JobGiver_SpecificWork">
+											<workGiverDef>Drill</workGiverDef>
+										</li>
+									</subNodes>
+								</li>
+								<li Class="ThinkNode_ConditionalWorkMode" MayRequire="Ludeon.RimWorld.Biotech">
+									<workMode>SelfShutdown</workMode>
+									<subNodes>
+										<li Class="JobGiver_SeekAllowedArea" />
+										<li Class="JobGiver_SelfShutdown" />
+									</subNodes>
+								</li>
 							</subNodes>
 						</li>
-						<li Class="JobGiver_WanderAnywhere" />
 					</subNodes>
 				</li>
 			</subNodes>
