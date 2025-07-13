@@ -5,6 +5,7 @@
 	<supportedVersions>
 		<li>1.4</li>
 		<li>1.5</li>
+		<li>1.6</li>
 	</supportedVersions>
 	<packageId>Taggerung.SpecificWorkJobGiver</packageId>
 	<description>Base game puts most work types into a single JobGiver_Work, this allows you to specify a single worktype by hand for more custom job assignment.\n\nThis is a micro-library, as a player you will not use this directly.</description>
