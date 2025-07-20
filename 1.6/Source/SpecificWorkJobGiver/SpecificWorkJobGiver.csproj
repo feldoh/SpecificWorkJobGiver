@@ -59,7 +59,7 @@
         <AboutFiles Include="../../../About/**" Exclude="../../../About/*.png~" />
         <CommonFiles Include="../../../Common/**" />
         <CompatibilityFiles Include="../../../Compatibility/**" />
-        <ExtraFiles Include="../../../LoadFolders.xml;../../../LICENSE;../../../README.md" />
+        <ExtraFiles Include="../../../LoadFolders.xml;../../../LICENSE;../../../README.md;../../../CONTINUITY.md" />
     </ItemGroup>
     <Target Name="PostBuild" AfterTargets="Build">
         <RemoveDir Condition="Exists('../../../Release')" Directories="../../../Release" />
